@@ -6,7 +6,10 @@
 
 <title>Royal Restaurant | Fine Dining</title>
 
-<meta name="description" content="Royal Restaurant — refined dining, unforgettable moments.">
+<meta
+  name="description"
+  content="Royal Restaurant — refined dining, unforgettable moments."
+>
 
 <style>
 
@@ -480,7 +483,12 @@ nav a:hover{
   border-bottom:1px solid var(--line);
 }
 
-.menu-item h4{
+.menu-item-top{
+  flex:1;
+}
+
+.menu-item h4,
+.menu-item h3{
   font-family:Georgia, "Times New Roman", serif;
 
   font-size:20px;
@@ -498,7 +506,8 @@ nav a:hover{
   font-size:13px;
 }
 
-.menu-price{
+.menu-price,
+.menu-item-top span{
   color:var(--gold);
 
   white-space:nowrap;
@@ -981,7 +990,6 @@ footer small{
 </style>
 </head>
 
-
 <body>
 
 
@@ -992,7 +1000,7 @@ footer small{
 <header>
 
   <a href="#" class="logo">
-    ROYAL<span>•</span>RESTAURANT
+    <span data-restaurant-name>ROYAL•RESTAURANT</span>
   </a>
 
   <nav>
@@ -1014,14 +1022,16 @@ footer small{
 </header>
 
 
-
 <!-- =========================
      HERO
 ========================= -->
 
 <section class="hero">
 
-  <div class="hero-bg"></div>
+  <div
+    class="hero-bg"
+    data-restaurant-image="0"
+  ></div>
 
   <div class="hero-content">
 
@@ -1056,7 +1066,6 @@ footer small{
 </section>
 
 
-
 <!-- =========================
      INTRO
 ========================= -->
@@ -1078,7 +1087,6 @@ footer small{
   </p>
 
 </section>
-
 
 
 <!-- =========================
@@ -1109,105 +1117,14 @@ footer small{
   </div>
 
 
-  <div class="signature-grid">
+  <!-- Dynamic signature dishes -->
 
-
-    <article class="dish">
-
-      <div class="dish-image">
-
-        <img
-          src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1000&q=90"
-          alt="Truffle Tagliatelle"
-        >
-
-      </div>
-
-      <div class="dish-info">
-
-        <h3>
-          Truffle Tagliatelle
-        </h3>
-
-        <span>
-          $24
-        </span>
-
-      </div>
-
-      <p class="dish-description">
-        Handmade pasta, parmesan and black truffle.
-      </p>
-
-    </article>
-
-
-
-    <article class="dish">
-
-      <div class="dish-image">
-
-        <img
-          src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1000&q=90"
-          alt="Royal Ribeye"
-        >
-
-      </div>
-
-      <div class="dish-info">
-
-        <h3>
-          Royal Ribeye
-        </h3>
-
-        <span>
-          $38
-        </span>
-
-      </div>
-
-      <p class="dish-description">
-        Grilled ribeye, roasted garlic and herb butter.
-      </p>
-
-    </article>
-
-
-
-    <article class="dish">
-
-      <div class="dish-image">
-
-        <img
-          src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=90"
-          alt="Signature dish"
-        >
-
-      </div>
-
-      <div class="dish-info">
-
-        <h3>
-          Sea Bass
-        </h3>
-
-        <span>
-          $31
-        </span>
-
-      </div>
-
-      <p class="dish-description">
-        Pan-seared sea bass, lemon and seasonal greens.
-      </p>
-
-    </article>
-
-
-  </div>
+  <div
+    class="signature-grid"
+    data-signature-list
+  ></div>
 
 </section>
-
 
 
 <!-- =========================
@@ -1229,15 +1146,12 @@ footer small{
   </div>
 
 
-
-  <!-- STARTERS -->
-
   <div class="menu-category">
 
     <div class="category-title">
 
       <h3>
-        Starters
+        Menu
       </h3>
 
       <span></span>
@@ -1245,195 +1159,13 @@ footer small{
     </div>
 
 
-    <div class="menu-item">
+    <!-- Dynamic menu -->
 
-      <div>
-
-        <h4>
-          Burrata & Tomatoes
-        </h4>
-
-        <p>
-          Creamy burrata, heirloom tomatoes and basil.
-        </p>
-
-      </div>
-
-      <span class="menu-price">
-        $16
-      </span>
-
-    </div>
-
-
-    <div class="menu-item">
-
-      <div>
-
-        <h4>
-          Royal Caesar
-        </h4>
-
-        <p>
-          Crisp greens, parmesan and house dressing.
-        </p>
-
-      </div>
-
-      <span class="menu-price">
-        $14
-      </span>
-
-    </div>
-
-
-  </div>
-
-
-
-  <!-- MAIN -->
-
-  <div class="menu-category">
-
-    <div class="category-title">
-
-      <h3>
-        Main Courses
-      </h3>
-
-      <span></span>
-
-    </div>
-
-
-    <div class="menu-item">
-
-      <div>
-
-        <h4>
-          Royal Ribeye
-        </h4>
-
-        <p>
-          Grilled ribeye, roasted garlic and herb butter.
-        </p>
-
-      </div>
-
-      <span class="menu-price">
-        $38
-      </span>
-
-    </div>
-
-
-    <div class="menu-item">
-
-      <div>
-
-        <h4>
-          Truffle Tagliatelle
-        </h4>
-
-        <p>
-          Handmade pasta, parmesan and black truffle.
-        </p>
-
-      </div>
-
-      <span class="menu-price">
-        $24
-      </span>
-
-    </div>
-
-
-    <div class="menu-item">
-
-      <div>
-
-        <h4>
-          Pan-Seared Sea Bass
-        </h4>
-
-        <p>
-          Lemon butter, seasonal greens and herbs.
-        </p>
-
-      </div>
-
-      <span class="menu-price">
-        $31
-      </span>
-
-    </div>
-
-
-  </div>
-
-
-
-  <!-- DESSERT -->
-
-  <div class="menu-category">
-
-    <div class="category-title">
-
-      <h3>
-        Desserts
-      </h3>
-
-      <span></span>
-
-    </div>
-
-
-    <div class="menu-item">
-
-      <div>
-
-        <h4>
-          Chocolate Torte
-        </h4>
-
-        <p>
-          Dark chocolate, sea salt and vanilla cream.
-        </p>
-
-      </div>
-
-      <span class="menu-price">
-        $12
-      </span>
-
-    </div>
-
-
-    <div class="menu-item">
-
-      <div>
-
-        <h4>
-          Royal Cheesecake
-        </h4>
-
-        <p>
-          Silky cheesecake with seasonal berry compote.
-        </p>
-
-      </div>
-
-      <span class="menu-price">
-        $11
-      </span>
-
-    </div>
-
+    <div data-menu-list></div>
 
   </div>
 
 </section>
-
 
 
 <!-- =========================
@@ -1471,7 +1203,6 @@ footer small{
 </section>
 
 
-
 <!-- =========================
      GALLERY
 ========================= -->
@@ -1507,6 +1238,7 @@ footer small{
     <div class="gallery-item">
 
       <img
+        data-restaurant-image="1"
         src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=90"
         alt="Restaurant dish"
       >
@@ -1517,6 +1249,7 @@ footer small{
     <div class="gallery-item">
 
       <img
+        data-restaurant-image="2"
         src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=90"
         alt="Chocolate dessert"
       >
@@ -1527,6 +1260,7 @@ footer small{
     <div class="gallery-item">
 
       <img
+        data-restaurant-image="3"
         src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&q=90"
         alt="Restaurant drink"
       >
@@ -1547,7 +1281,6 @@ footer small{
   </div>
 
 </section>
-
 
 
 <!-- =========================
@@ -1579,7 +1312,6 @@ footer small{
   </div>
 
 </section>
-
 
 
 <!-- =========================
@@ -1615,7 +1347,6 @@ footer small{
 </section>
 
 
-
 <!-- =========================
      CONTACT
 ========================= -->
@@ -1644,7 +1375,7 @@ footer small{
         PHONE
       </h3>
 
-      <p>
+      <p data-phone>
         +20 100 000 0000
       </p>
 
@@ -1657,7 +1388,7 @@ footer small{
         ADDRESS
       </h3>
 
-      <p>
+      <p data-address>
         123 Royal Street, Cairo, Egypt
       </p>
 
@@ -1670,9 +1401,8 @@ footer small{
         OPENING HOURS
       </h3>
 
-      <p>
-        Monday — Sunday<br>
-        12:00 PM — 12:00 AM
+      <p data-hours>
+        Monday — Sunday · 12:00 PM — 12:00 AM
       </p>
 
     </div>
@@ -1684,7 +1414,7 @@ footer small{
         EMAIL
       </h3>
 
-      <p>
+      <p data-email>
         hello@royalrestaurant.com
       </p>
 
@@ -1696,7 +1426,6 @@ footer small{
 </section>
 
 
-
 <!-- =========================
      FOOTER
 ========================= -->
@@ -1704,7 +1433,11 @@ footer small{
 <footer>
 
   <div class="footer-logo">
-    <span data-restaurant-name>ROYAL•RESTAURANT</span>
+
+    <span data-restaurant-name>
+      ROYAL•RESTAURANT
+    </span>
+
   </div>
 
   <small>
@@ -1712,6 +1445,8 @@ footer small{
   </small>
 
 </footer>
+
+
 <script src="script.js"></script>
 
 </body>
