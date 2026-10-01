@@ -1,14 +1,4 @@
-// ========================================
-// ROYAL RESTAURANT
-// Customer-Facing Website Data Loader
-// ========================================
-
 const STORAGE_KEY = "royalRestaurantData";
-
-
-// ========================================
-// Fallback dish images
-// ========================================
 
 const FALLBACK_DISH_IMAGES = [
   "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1200&q=85",
@@ -19,97 +9,66 @@ const FALLBACK_DISH_IMAGES = [
   "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1200&q=85"
 ];
 
+const DEFAULT_MENU = [
+  {
+    name: "Truffle Tagliatelle",
+    price: "420 EGP",
+    description: "Fresh pasta, black truffle, parmesan and creamy sauce.",
+    image: FALLBACK_DISH_IMAGES[0]
+  },
+  {
+    name: "Royal Ribeye",
+    price: "780 EGP",
+    description: "Premium grilled ribeye with roasted vegetables and royal sauce.",
+    image: FALLBACK_DISH_IMAGES[1]
+  },
+  {
+    name: "Pan-Seared Sea Bass",
+    price: "620 EGP",
+    description: "Fresh sea bass, lemon butter, herbs and seasonal vegetables.",
+    image: FALLBACK_DISH_IMAGES[2]
+  },
+  {
+    name: "Burrata & Tomatoes",
+    price: "320 EGP",
+    description: "Creamy burrata, ripe tomatoes, basil and extra virgin olive oil.",
+    image: FALLBACK_DISH_IMAGES[3]
+  },
+  {
+    name: "Royal Cheesecake",
+    price: "220 EGP",
+    description: "Classic cheesecake with vanilla, berries and caramel.",
+    image: FALLBACK_DISH_IMAGES[4]
+  },
+  {
+    name: "Chocolate Royale",
+    price: "240 EGP",
+    description: "Dark chocolate dessert with hazelnut and vanilla cream.",
+    image: FALLBACK_DISH_IMAGES[5]
+  }
+];
 
-// ========================================
-// Default restaurant data
-// ========================================
+const DEFAULT_IMAGES = [
+  "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=2000&q=90",
+  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=85",
+  "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1400&q=85",
+  "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1400&q=85"
+];
 
 const defaultData = {
-
   restaurantName: "ROYAL•RESTAURANT",
-
   phone: "+20 100 000 0000",
-
   address: "123 Royal Street, Cairo, Egypt",
-
   email: "hello@royalrestaurant.com",
-
   hours: "Monday — Sunday · 12:00 PM — 12:00 AM",
-
-  menu: [
-
-    {
-      name: "Truffle Tagliatelle",
-      price: "420 EGP",
-      description:
-        "Fresh pasta, black truffle, parmesan and creamy sauce.",
-      image: FALLBACK_DISH_IMAGES[0]
-    },
-
-    {
-      name: "Royal Ribeye",
-      price: "780 EGP",
-      description:
-        "Premium grilled ribeye with roasted vegetables and royal sauce.",
-      image: FALLBACK_DISH_IMAGES[1]
-    },
-
-    {
-      name: "Pan-Seared Sea Bass",
-      price: "620 EGP",
-      description:
-        "Fresh sea bass, lemon butter, herbs and seasonal vegetables.",
-      image: FALLBACK_DISH_IMAGES[2]
-    },
-
-    {
-      name: "Burrata & Tomatoes",
-      price: "320 EGP",
-      description:
-        "Creamy burrata, ripe tomatoes, basil and extra virgin olive oil.",
-      image: FALLBACK_DISH_IMAGES[3]
-    },
-
-    {
-      name: "Royal Cheesecake",
-      price: "220 EGP",
-      description:
-        "Classic cheesecake with vanilla, berries and caramel.",
-      image: FALLBACK_DISH_IMAGES[4]
-    },
-
-    {
-      name: "Chocolate Royale",
-      price: "240 EGP",
-      description:
-        "Dark chocolate dessert with hazelnut and vanilla cream.",
-      image: FALLBACK_DISH_IMAGES[5]
-    }
-
-  ],
-
-  images: [
-
-    // Hero
-    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2000&q=90",
-
-    // Gallery 1
-    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=85",
-
-    // Gallery 2
-    "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1400&q=85",
-
-    // Gallery 3
-    "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1400&q=85"
-
-  ]
-
+  menu: DEFAULT_MENU,
+  images: DEFAULT_IMAGES
 };
 
 
-// ========================================
-// Get restaurant data
-// ========================================
+// ================================
+// Get saved data
+// ================================
 
 function getRestaurantData() {
 
@@ -123,76 +82,81 @@ function getRestaurantData() {
 
     const data = JSON.parse(saved);
 
-    const savedMenu =
-      Array.isArray(data.menu)
-        ? data.menu
-        : defaultData.menu;
+    if (!data || typeof data !== "object") {
+      return defaultData;
+    }
 
+    const menu = Array.isArray(data.menu)
+      ? data.menu
+      : DEFAULT_MENU;
 
-    // Make sure every dish has an image
-    const normalizedMenu = savedMenu.map((item, index) => {
+    const normalizedMenu = menu.map((item, index) => {
 
-      const defaultItem =
-        defaultData.menu[index] ||
-        defaultData.menu[index % defaultData.menu.length];
+      const fallback =
+        DEFAULT_MENU[index % DEFAULT_MENU.length];
 
       return {
-
-        ...defaultItem,
-
+        ...fallback,
         ...item,
-
         image:
           item.image ||
-          defaultItem.image ||
+          fallback.image ||
           FALLBACK_DISH_IMAGES[
             index % FALLBACK_DISH_IMAGES.length
           ]
-
       };
 
     });
 
-
     return {
-
       ...defaultData,
-
       ...data,
-
       menu: normalizedMenu,
-
       images:
         Array.isArray(data.images)
           ? data.images
-          : defaultData.images
-
+          : DEFAULT_IMAGES
     };
 
-  }
-
-  catch (error) {
+  } catch (error) {
 
     console.error(
-      "Royal Restaurant data error:",
+      "Royal Restaurant error:",
       error
     );
 
     return defaultData;
-
   }
-
 }
 
 
-// ========================================
-// Update restaurant information
-// ========================================
+// ================================
+// Escape HTML
+// ================================
+
+function escapeHTML(value) {
+
+  if (
+    value === undefined ||
+    value === null
+  ) {
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+// ================================
+// Restaurant information
+// ================================
 
 function updateRestaurantInfo(data) {
-
-
-  // Restaurant name
 
   document
     .querySelectorAll("[data-restaurant-name]")
@@ -204,8 +168,6 @@ function updateRestaurantInfo(data) {
 
     });
 
-
-  // Phone
 
   document
     .querySelectorAll("[data-phone]")
@@ -228,8 +190,6 @@ function updateRestaurantInfo(data) {
     });
 
 
-  // Address
-
   document
     .querySelectorAll("[data-address]")
     .forEach(element => {
@@ -240,8 +200,6 @@ function updateRestaurantInfo(data) {
 
     });
 
-
-  // Email
 
   document
     .querySelectorAll("[data-email]")
@@ -263,8 +221,6 @@ function updateRestaurantInfo(data) {
     });
 
 
-  // Opening hours
-
   document
     .querySelectorAll("[data-hours]")
     .forEach(element => {
@@ -276,54 +232,16 @@ function updateRestaurantInfo(data) {
     });
 
 
-  // Browser title
-
-  if (data.restaurantName) {
-
-    document.title =
-      data.restaurantName +
-      " | Fine Dining";
-
-  }
-
+  document.title =
+    (data.restaurantName ||
+      defaultData.restaurantName) +
+    " | Fine Dining";
 }
 
 
-// ========================================
-// Set image on IMG or background element
-// ========================================
-
-function setImage(element, imageUrl) {
-
-  if (!element || !imageUrl) {
-    return;
-  }
-
-
-  // Normal <img>
-
-  if (element.tagName === "IMG") {
-
-    element.src = imageUrl;
-
-    element.removeAttribute("srcset");
-
-    return;
-
-  }
-
-
-  // Background image
-
-  element.style.backgroundImage =
-    `url("${imageUrl.replace(/"/g, '\\"')}")`;
-
-}
-
-
-// ========================================
-// Update restaurant images
-// ========================================
+// ================================
+// Images
+// ================================
 
 function updateImages(data) {
 
@@ -338,7 +256,11 @@ function updateImages(data) {
     .forEach(element => {
 
       const index =
-        Number(element.dataset.restaurantImage);
+        Number(
+          element.getAttribute(
+            "data-restaurant-image"
+          )
+        );
 
       if (
         Number.isNaN(index) ||
@@ -347,19 +269,29 @@ function updateImages(data) {
         return;
       }
 
-      setImage(
-        element,
-        images[index]
-      );
+
+      const image =
+        images[index];
+
+
+      if (element.tagName === "IMG") {
+
+        element.src = image;
+
+      } else {
+
+        element.style.backgroundImage =
+          `url("${image}")`;
+
+      }
 
     });
-
 }
 
 
-// ========================================
-// Update Signature Dishes
-// ========================================
+// ================================
+// Signature Dishes
+// ================================
 
 function updateSignatureDishes(data) {
 
@@ -383,30 +315,24 @@ function updateSignatureDishes(data) {
   ) {
 
     container.innerHTML = `
-      <p style="opacity:.7;">
-        Our menu is being updated.
+      <p style="color:rgba(255,255,255,.6)">
+        Menu coming soon.
       </p>
     `;
 
     return;
-
   }
 
 
-  // First 3 dishes = Signature Dishes
-
-  const signatureDishes =
-    data.menu.slice(0, 3);
-
-
-  signatureDishes.forEach(
-    (item, index) => {
-
+  data.menu
+    .slice(0, 3)
+    .forEach((item, index) => {
 
       const image =
         item.image ||
         FALLBACK_DISH_IMAGES[
-          index % FALLBACK_DISH_IMAGES.length
+          index %
+          FALLBACK_DISH_IMAGES.length
         ];
 
 
@@ -429,56 +355,51 @@ function updateSignatureDishes(data) {
 
         </div>
 
-        <div class="dish-content">
 
-          <div class="dish-title-row">
+        <div class="dish-info">
 
-            <h3>
-              ${escapeHTML(item.name)}
-            </h3>
+          <h3>
+            ${escapeHTML(item.name)}
+          </h3>
 
-            <span class="dish-price">
-              ${escapeHTML(item.price)}
-            </span>
-
-          </div>
-
-          <p>
-            ${escapeHTML(item.description)}
-          </p>
+          <span>
+            ${escapeHTML(item.price)}
+          </span>
 
         </div>
+
+
+        <p class="dish-description">
+          ${escapeHTML(item.description)}
+        </p>
 
       `;
 
 
       container.appendChild(article);
 
-    }
-
-  );
-
+    });
 }
 
 
-// ========================================
-// Update Full Menu
-// ========================================
+// ================================
+// Full Menu
+// ================================
 
 function updateMenu(data) {
 
-  const menuContainer =
+  const container =
     document.querySelector(
       "[data-menu-list]"
     );
 
 
-  if (!menuContainer) {
+  if (!container) {
     return;
   }
 
 
-  menuContainer.innerHTML = "";
+  container.innerHTML = "";
 
 
   if (
@@ -486,19 +407,17 @@ function updateMenu(data) {
     data.menu.length === 0
   ) {
 
-    menuContainer.innerHTML = `
-      <p style="opacity:.7;">
+    container.innerHTML = `
+      <p>
         Menu coming soon.
       </p>
     `;
 
     return;
-
   }
 
 
   data.menu.forEach(item => {
-
 
     const article =
       document.createElement("article");
@@ -529,47 +448,15 @@ function updateMenu(data) {
     `;
 
 
-    menuContainer.appendChild(article);
+    container.appendChild(article);
 
   });
-
 }
 
 
-// ========================================
-// HTML Security
-// ========================================
-
-function escapeHTML(value) {
-
-  if (
-    value === undefined ||
-    value === null
-  ) {
-
-    return "";
-
-  }
-
-
-  return String(value)
-
-    .replace(/&/g, "&amp;")
-
-    .replace(/</g, "&lt;")
-
-    .replace(/>/g, "&gt;")
-
-    .replace(/"/g, "&quot;")
-
-    .replace(/'/g, "&#039;");
-
-}
-
-
-// ========================================
-// Initialize Website
-// ========================================
+// ================================
+// Initialize
+// ================================
 
 function initializeRoyalRestaurant() {
 
@@ -588,23 +475,33 @@ function initializeRoyalRestaurant() {
 }
 
 
-// ========================================
-// Initial load
-// ========================================
+// ================================
+// Start
+// ================================
 
-document.addEventListener(
-  "DOMContentLoaded",
-  initializeRoyalRestaurant
-);
+if (
+  document.readyState === "loading"
+) {
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    initializeRoyalRestaurant
+  );
+
+} else {
+
+  initializeRoyalRestaurant();
+
+}
 
 
-// ========================================
-// Update automatically when localStorage changes
-// ========================================
+// ================================
+// Listen for changes
+// ================================
 
 window.addEventListener(
   "storage",
-  function(event) {
+  event => {
 
     if (
       event.key === STORAGE_KEY
